@@ -25,21 +25,24 @@ public class QuickSort {
         return nums;
     }
 
-    private int partition(int[] a, int begin, int end) {
-        // pivot: 标杆位置（这里选用 a[end] 作为标杆位置），counter：小于 pivot 的元素的个数
-        int counter = begin;
+    // 重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。
+    // 在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作
+    private int partition(int[] nums, int begin, int end) {
+        // 选择 nums[end] 作为比对参照（这个可任意指定），pivot 表示小于 nums[end] 值的元素个数
+        int pivot = begin;
         for (int i = begin; i < end; i++) {
-            if (a[i] < a[end]) {
-                int temp = a[counter];
-                a[counter] = a[i];
-                a[i] = temp;
-                counter++;
+            if (nums[i] < nums[end]) {
+                int temp = nums[pivot];
+                nums[pivot] = nums[i];
+                nums[i] = temp;
+                pivot++;
             }
         }
-        int temp = a[end];
-        a[end] = a[counter];
-        a[counter] = temp;
-        return counter;
+
+        int temp = nums[end];
+        nums[end] = nums[pivot];
+        nums[pivot] = temp;
+        return pivot;
     }
 
     public static void main(String[] args) {
